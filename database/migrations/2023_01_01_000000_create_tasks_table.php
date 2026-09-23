@@ -9,8 +9,12 @@ return new class extends Migration {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title', 120);
+            $table->text('description')->nullable();
+            $table->string('priority', 12)->default('normal');
             $table->boolean('done')->default(false);
+            $table->dateTime('due_at')->nullable();
             $table->timestamps();
+            $table->index(['done', 'priority']);
         });
     }
     public function down(): void { Schema::dropIfExists('tasks'); }
